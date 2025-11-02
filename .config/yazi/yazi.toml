@@ -29,6 +29,15 @@ sixel_fraction  = 15
 ueberzug_scale  = 1
 ueberzug_offset = [ 0, 0, 0, 0 ]
 
+image = true
+video = true
+pdf = true
+
+# 图片预览器优先级
+image_loop = ["catimg"]
+
+# 预览大小限制
+
 
 [opener]
 edit = [

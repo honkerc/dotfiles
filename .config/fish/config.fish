@@ -8,7 +8,6 @@ set -U fish_greeting ""
 
 # 环境变量
 set -Ux GIT_CONFIG_GLOBAL "$HOME/.config/git/config"
-set -gx EDITOR nvim
 set -gx BG_PATH /data/bg/img
 set -gx DOTFILES /data/dotfiles
 
@@ -32,16 +31,16 @@ end
 if command -q nvim && test -f "$HOME/.config/self/script/nvim-nopadding.sh"
     # Fish 使用 command -q 来检查命令是否存在
     # && 用于逻辑与操作
-    set NVIM_CMD "$HOME/.config/self/script/nvim-nopadding.sh"
+    set -gx EDITOR "$HOME/.config/self/script/nvim-nopadding.sh"
 else if command -q nvim
-    set NVIM_CMD "nvim"
+    set -gx EDITOR "nvim"
 else
-    set NVIM_CMD "vim"
+    set -gx EDITOR "vim"
 end
 
-alias nvim="$NVIM_CMD"
-alias vim="$NVIM_CMD"
-alias nv="$NVIM_CMD"
+alias nvim="$EDITOR"
+alias vim="$EDITOR"
+alias nv="$EDITOR"
 
 alias grep='grep --color=auto'
 alias gdd='cd ~/Downloads'
@@ -53,7 +52,7 @@ alias gs="git status"
 alias syy="sudo pacman -Syy"
 alias syu="sudo pacman -Syu"
 
-alias y="yazi"
+# alias y="yazi"
 alias h="Hyprland > .hypr.log"
 alias o="xdg-open"
 alias q="sudo pacman -Rns (pacman -Qdtq)"
@@ -67,3 +66,16 @@ end
 function active
     bash -c "source $HOME/.venv/bin/activate; exec fish"
 end
+
+
+
+function open_yazi
+    set -l tmp (mktemp -t "yazi-cwd.XXXXXX")
+    yazi $PWD --cwd-file="$tmp"
+    if set -l cwd (cat "$tmp" 2>/dev/null); and test -n "$cwd"; and test "$cwd" != "$PWD"
+        cd "$cwd"
+    end
+    rm -f "$tmp"
+end
+
+bind \cy open_yazi  # Alt+y

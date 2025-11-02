@@ -628,8 +628,8 @@ if __name__ == "__main__":
     config = {
         "base_url": "http://hon-ker.cn",
         "api_key": "1NqFB3pWLEiiBqOQBcu1yZxxz0nWkX5c2FI1zxmjs_U",
-        "docs_path": "/home/clay/docs",  # 硬编码文档路径
-        "backup_path": "/home/clay/backups",  # 硬编码备份路径
+        "docs_path": "/data/docs",  # 硬编码文档路径
+        "backup_path": "/data/docs/.backups",  # 硬编码备份路径
         "conflict_mode": "show",  # 硬编码冲突处理模式
     }
 
