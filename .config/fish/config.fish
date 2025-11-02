@@ -43,7 +43,7 @@ alias vim="$EDITOR"
 alias nv="$EDITOR"
 
 alias grep='grep --color=auto'
-alias gdd='cd ~/Downloads'
+alias gdd='cd /data/download/'
 alias ddd='cd $DOTFILES'
 alias ccc='cd $HOME/.config'
 
