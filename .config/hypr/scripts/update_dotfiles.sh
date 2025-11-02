@@ -30,6 +30,7 @@ CONFIF_DIR="${1:-$DOTFILE_DIR/.config}"
 # 需要备份的配置文件列表
 BACKUP_FILES=(
     "self"          # 自定义配置
+    "user-dirs.dirs" # 关于download等桌面的位置
 
     "alacritty"     # Alacritty终端
     "cava"          # cava音乐音效效果
