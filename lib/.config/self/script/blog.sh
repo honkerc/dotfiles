@@ -2,7 +2,7 @@
 
 # 获取脚本名称和进程ID文件路径
 SCRIPT_NAME=$(basename "$0")
-SERVICE_DIR=$HOME/www/
+SERVICE_DIR=/data/project/www/
 PID_FILE="/tmp/${SCRIPT_NAME}.pids"
 
 # 函数：发送桌面通知

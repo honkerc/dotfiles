@@ -79,7 +79,7 @@ class DocsScanner:
         self.supported_extensions = {'.md', '.markdown',".txt"}
 
         if ignore_list is None:
-            self.ignore_list = ["文章模板.md", "页面模板.md","草稿"]
+            self.ignore_list = ["文章模板.md", "页面模板.md","草稿","日精进","读书"]
         else:
             self.ignore_list = ignore_list
 

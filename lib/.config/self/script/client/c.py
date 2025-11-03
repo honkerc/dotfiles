@@ -4,8 +4,10 @@ from remote import RemotePostAPI, RemoteFileAPI, RemotePageAPI, RemoteRootAPI, A
 from typing import List, Union, Optional, Dict, Any, Tuple
 from local import DocsScanner, Post, Page, DocsMaker
 from urllib.parse import unquote
+from datetime import timedelta
 from pathlib import Path
 from local import log
+import time
 import argparse
 import yaml
 import sys
@@ -612,9 +614,11 @@ class SimpleCLI:
 
         except Exception as e:
             self.log.error(f"执行错误: {e}")
-            return 1
+            raise e
+            # return 1
 
         return 0
+
 
 
 def main(
@@ -624,21 +628,46 @@ def main(
 
 
 if __name__ == "__main__":
+    # 记录开始时间
+    start_time = time.time()
+
     # 硬编码所有配置参数
     config = {
         "base_url": "http://hon-ker.cn",
-        "api_key": "1NqFB3pWLEiiBqOQBcu1yZxxz0nWkX5c2FI1zxmjs_U",
+        "api_key": "",
         "docs_path": "/data/docs",  # 硬编码文档路径
         "backup_path": "/data/docs/.backups",  # 硬编码备份路径
         "conflict_mode": "show",  # 硬编码冲突处理模式
     }
 
-    sys.exit(
-        main(
+    try:
+        exit_code = main(
             base_url=config["base_url"],
             api_key=config["api_key"],
             docs_path=config["docs_path"],
             backup_path=config["backup_path"],
             conflict_mode=config["conflict_mode"],
         )
-    )
+    except Exception as e:
+        exit_code = 1
+        raise e
+    finally:
+        # 计算运行时间
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+
+        # 格式化显示运行时间
+        if elapsed_time < 60:
+            time_str = f"{elapsed_time:.2f}秒"
+        elif elapsed_time < 3600:
+            minutes = int(elapsed_time // 60)
+            seconds = elapsed_time % 60
+            time_str = f"{minutes}分{seconds:.2f}秒"
+        else:
+            hours = int(elapsed_time // 3600)
+            minutes = int((elapsed_time % 3600) // 60)
+            seconds = elapsed_time % 60
+            time_str = f"{hours}小时{minutes}分{seconds:.2f}秒"
+        log.success(f"Run Time {time_str}")
+
+    sys.exit(exit_code)

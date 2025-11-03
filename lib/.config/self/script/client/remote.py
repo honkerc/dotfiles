@@ -723,7 +723,7 @@ class RemoteRootAPI(BaseRemoteAPI):
         """
         endpoint = "/api/root/export/data"
         response = self._request("GET", endpoint)
-
+        response.raise_for_status()
         data = response.json()
 
         # 如果指定了保存路径，保存到文件
@@ -800,6 +800,7 @@ class RemoteRootAPI(BaseRemoteAPI):
         """
         endpoint = "/api/root/export/static"
         response = self._request("GET", endpoint, stream=True)
+        response.raise_for_status()
 
         # 处理文件名
         if not filename:
