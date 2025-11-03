@@ -1,0 +1,62 @@
+[global]
+	monitor = 0                    # 在主显示器上显示通知
+	layer = top                    # 通知显示在所有窗口之上
+	follow = mouse                 # 通知跟随鼠标位置
+	indicate_hidden = yes          # 显示隐藏的通知指示器
+	shrink = no                    # 不允许通知缩小
+	separator_height = 2           # 分隔线高度为2像素
+	padding = 10                   # 通知内容内边距为10像素
+	horizontal_padding = 10        # 水平内边距为10像素
+	frame_width = 3                # 边框宽度为3像素
+	frame_color = "#f7768e"        # 边框颜色为粉色(#f7768e)
+	separator_color = frame        # 分隔线颜色与边框相同
+	sort = yes                     # 按时间排序通知
+	idle_threshold = 120           # 120秒后视为空闲状态
+	font = DejaVu Sans Mono 12     # 使用DejaVu Sans Mono字体，大小12
+	line_height = 3                # 行高为3像素
+	markup = full                  # 支持完整的标记语言
+	offset = "20x20"               # 距离屏幕边缘的偏移量为20x20像素
+	format = "<span><b>%s %p</b></span>\n%b" # 通知格式：加粗的标题和进度，换行后显示正文
+	alignment = left               # 文本左对齐
+	show_age_threshold = 60        # 60秒后显示通知年龄
+	word_wrap = yes                # 允许文本自动换行
+	ellipsize = middle             # 文本过长时在中间显示省略号
+	ignore_newline = no            # 不忽略换行符
+	stack_duplicates = true        # 堆叠重复的通知
+	hide_duplicate_count = false   # 显示重复计数
+	show_indicators = yes          # 显示通知指示器
+	icon_position = left           # 图标位于左侧
+	max_icon_size = 48             # 图标最大尺寸为48像素
+	icon_path = /usr/share/icons/Adwaita/48x48/status/:/usr/share/icons/hicolor/48x48/apps/:/usr/share/icons/Papirus/48x48/apps/:/usr/share/pixmaps/ # 图标搜索路径
+	sticky_history = yes           # 保持历史通知
+	history_length = 20            # 历史记录保留20条通知
+	always_run_script = true       # 总是运行脚本
+	corner_radius = 4              # 圆角半径为4像素
+	force_xinerama = false         # 不强制使用Xinerama
+	mouse_left_click = do_action   # 左键单击执行操作
+	mouse_middle_click = close_all # 中键单击关闭所有通知
+	mouse_right_click = close_current # 右键单击关闭当前通知
+
+[shortcuts]
+# close = ctrl+space           # 关闭通知的快捷键(已注释)
+#history = ctrl+shift+space    # 查看历史的快捷键(已注释)
+#context = ctrl+shift+period   # 上下文菜单的快捷键(已注释)
+
+[urgency_low]
+	# 重要：颜色必须用引号括起来，否则'#'和后面的内容会被解释为注释
+	background="#24283b"           # 低紧急度通知背景颜色为深蓝色(#24283b)
+	foreground="#ffffff"           # 低紧急度通知文本颜色为白色(#ffffff)
+	timeout = 3                    # 低紧急度通知显示3秒后消失
+	frame_color = "#f7768e"        # 低紧急度通知边框颜色为粉色(#f7768e)
+
+[urgency_normal]
+	background="#24283b"           # 普通紧急度通知背景颜色为深蓝色(#24283b)
+	foreground="#ffffff"           # 普通紧急度通知文本颜色为白色(#ffffff)
+	frame_color = "#f7768e"        # 普通紧急度通知边框颜色为粉色(#f7768e)
+	timeout = 3                    # 普通紧急度通知显示3秒后消失
+
+[urgency_critical]
+	background="#24283b"           # 高紧急度通知背景颜色为深蓝色(#24283b)
+	foreground="#ffffff"           # 高紧急度通知文本颜色为白色(#ffffff)
+	frame_color = "#f7768e"        # 高紧急度通知边框颜色为粉色(#f7768e)
+	timeout = 5                    # 高紧急度通知显示5秒后消失

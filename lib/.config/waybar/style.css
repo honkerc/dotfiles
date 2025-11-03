@@ -1,0 +1,136 @@
+/* 彩色*/
+/* @import "workspace.css"; */
+
+/* 简约*/
+@import "simple-workspace.css";
+
+* {
+  all: unset;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "DejaVu Sans Mono", "Symbols Nerd Font";
+}
+
+#waybar {
+  background-color: transparent;
+  border-radius: 4px;
+  /* border:2px solid #3b4252; */
+}
+
+.modules-left {
+  /* background-color: #222436; */
+  border-radius: 4px;
+}
+
+.modules-right {
+  border-radius: 4px;
+}
+
+.modules-center {
+}
+
+#custom-logo {
+  padding: 0 6px;
+  font-size: 22px;
+  color: #7a95c9;
+  border-radius: 6px;
+}
+
+#cpu {
+  margin-right: 5px;
+}
+
+#memory {
+  color: red;
+  margin-right: 5px;
+}
+
+#tools {
+  background-color: #222436;
+  border-radius: 4px;
+  padding: 4px 6px;
+  margin:5px;
+}
+
+#tools * {}
+
+#battery {
+  font-size: 17px;
+  padding-right: 5px;
+  color: #00FF7F;
+}
+
+#battery.warning {
+  color: #ecd3a0;
+}
+
+#battery.critical:not(.charging) {
+  color: #fb958b;
+}
+
+
+#battery.charging{
+    background-color: darkred;
+}
+
+#backlight,
+#pulseaudio {
+  font-size: 18px;
+  border-radius: 6px;
+  color: #7aa2f7;
+  padding: 0 5px;
+}
+
+#backlight {
+  color: #7aa2f7;
+  margin-right: 5px;
+}
+
+#pulseaudio {
+  color: #bb9af7;
+}
+
+#tray {
+  padding: 0;
+  outline: none;
+}
+
+/* nm-applet */
+#tray menu {
+  background-color: #2e3440;
+  color: #d8dee9;
+  border-radius: 6px;
+  padding: 8px;
+}
+
+#tray menu menuitem {
+  /* 菜单项 */
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+#tray menu menuitem:hover {
+  background-color: #434c5e;
+}
+
+/* 网络图标样式 */
+#tray > image {
+  color: #81a1c1;
+  /* 图标颜色 */
+  padding: 0 4px;
+}
+
+tooltip {
+  border-radius: 8px;
+  padding: 15px;
+  background-color: #242933;
+}
+
+tooltip label {
+  padding: 5px;
+  background-color: #242933;
+}
+
+label:focus {
+  background-color: #242933;
+}
