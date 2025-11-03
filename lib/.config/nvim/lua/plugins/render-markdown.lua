@@ -35,7 +35,7 @@ local render_markdown_opts =  {
   },
   heading = {
     icons = { ' 󰼏 ', ' 󰎨 ', ' 󰼑 ', ' 󰎲 ', ' 󰼓 ', ' 󰎴 ' },
-    border = true,
+    border = false,
     render_modes = true, -- keep rendering while inserting
   },
   checkbox = {
