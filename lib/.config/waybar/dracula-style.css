@@ -3,7 +3,7 @@
 
 * {
   all: unset;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 400;
   font-family: "Symbols Nerd Font", "DejaVu Sans Mono";
 }
@@ -19,7 +19,7 @@
 /* ── CENTER ───────────────────────────────────────────────── */
 
 #clock {
-  background-color: #44475a;
+  background-color: #282a36;
   border-radius: 10px;
   padding: 0 16px;
   margin: 4px 0;
@@ -56,43 +56,34 @@
 }
 
 #cpu {
-  font-size: 18px;
-  padding: 0 2px 2px 2px;
-  margin:4px;
+  font-size: 12px;
+  padding: 0 2px 0 0;
   color: #50fa7b;
 }
 
 #memory {
-  font-size: 16px;
+  font-size: 12px;
   padding: 0 0 0 2px;
-  color: #ff0000;
-  margin:4px;
-  margin-right:8px
+  color: #8be9fd;
 }
 
 /* ── RIGHT — tools island ─────────────────────────────────── */
 
 #tools {
   background-color: #44475a;
-  border-radius: 8px;
-  padding: 0px 8px;
+  border-radius: 10px;
+  padding: 2px 10px;
   margin: 4px 4px 4px 0;
 }
 
-#tools * {
-}
-
+#tools * {}
 
 /* separator  |  inside tools */
 #custom-endpoint {
-  color: #6272a4;
-  font-size: 12px;
-  padding: 0 3px;
-  /* min-width: 8px; */
-}
-#custom-ip{
-    color:#bd93f9;
-  padding: 0 3px;
+  color: rgba(98, 114, 164, 0.5);
+  font-size: 11px;
+  padding: 0 1px;
+  min-width: 8px;
 }
 
 /* idle inhibitor */
@@ -111,7 +102,6 @@
   font-size: 16px;
   color: #ff79c6;
   padding: 0 3px;
-
 }
 
 #pulseaudio.muted {

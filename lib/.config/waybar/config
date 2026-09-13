@@ -35,14 +35,15 @@
     "group/tools": {
         "orientation": "horizontal",
         "modules": [
-        "tray",
-          //  "custom/ip",
-            //"custom/clock",
-            //"custom/picker",
-            //"custom/bg",
+           "custom/ip",
+            // "custom/clock",
+            // "custom/picker",
+            // "custom/bg",
         "pulseaudio",
         "backlight",
-            "battery",
+        "battery",
+        "custom/endpoint",
+        "tray",
         ]
     },
     // 窗口标题等
@@ -53,19 +54,19 @@
     "hyprland/workspaces": {
         "format": "{icon}",
         "format-icons": {
-          // "1": "",
-          // "2": "",
-          // "3": "",
-          // "4": "",
-          // "5": "",
-          // "6": "",
-          // "7": "",
-          // "8": "",
-          // "9": "",
-          // "10": "",
-          "default": "",
-          "active": "",
-          "urgent": "",
+          "1": "",
+          "2": "",
+          "3": "",
+          "4": "",
+          "5": "",
+          "6": "",
+          "7": "",
+          "8": "",
+          "9": "",
+          "10": "",
+          // "default": "",
+          // "active": "",
+          // "urgent": "",
         },
         "persistent-workspaces": {
             "*": [
@@ -92,7 +93,7 @@
         },
         "actions": {
             // "on-click-right": "shift_down",
-            // "on-click": "shift_up"
+            "on-click": "alacritty -e calcurse"
         }
     },
     "battery": {
@@ -104,6 +105,12 @@
                 ""
             ],
             "default": [
+                // "",
+                // "",
+                // "",
+                // "",
+                // ""
+
                 "󰁺",
                 "󰁻",
                 "󰁼",
@@ -144,7 +151,7 @@
         "format-icons": {
             "headphone": "",
             "default": [
-                "󰽱"
+                "󱪃"
             ]
         },
         "scroll-step": 1
@@ -155,7 +162,7 @@
         "format-alt": "{icon} {percent}",
         "tooltip-format": "{icon} {percent}%",
         "format-icons": [
-            "󰈸"
+            ""
             // "󱩎",
             // "󱩏",
             // "󱩐",

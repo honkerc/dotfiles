@@ -7,12 +7,19 @@ return {
         ensure_installed = {
             "lua",
             "toml",
-            "python"
+            "python",        -- 这里必须加逗号
+            "javascript",
+            "html",
+            "css",
+            "json",
+            "yaml",
+            "markdown",
+            "bash",
+            "vim",           -- 方便编辑 vim 脚本
         },
-        highlight = {enable = true}
+        highlight = { enable = true }
     },
     keys = {
-        {"<leader>uf",":NvimTreeToggle<CR>"}
+        { "<leader>uf", ":NvimTreeToggle<CR>" }
     }
 }
-
