@@ -21,7 +21,7 @@ image=/home/clay/.config/swaylock/dracula-wallpaper.svg
 #screenshot
 
 # 背景模糊效果 (水平模糊x垂直模糊)
-effect-blur=10x10
+effect-blur=3x3
 
 # 暗角效果 (强度:半径)
 effect-vignette=0.5:0.5

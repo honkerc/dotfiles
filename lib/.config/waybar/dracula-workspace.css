@@ -46,6 +46,6 @@
 
 #workspaces button.empty:hover,
 #workspaces button.active.empty {
-  color: #f8f8f2;
-  border-bottom: 3px solid #f8f8f2;
+      color: #a6accd; /* 柔和的灰蓝色，不再刺眼 */
+  border-bottom: 3px solid #a6accd;
 }

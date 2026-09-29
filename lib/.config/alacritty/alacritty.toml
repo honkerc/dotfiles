@@ -25,12 +25,17 @@ history = 10000
 [window]
 decorations = "None"  # 禁用客户端装饰
 dynamic_title = true
-opacity = 1.00
+opacity = 0.90
 
 
 [window.padding]
-x = 20
-y = 20
+x = 0
+y = 0
 
 [general]
 import = ["/home/clay/.config/alacritty/themes/snazzy.toml"]
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"

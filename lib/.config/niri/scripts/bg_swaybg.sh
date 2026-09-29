@@ -2,7 +2,7 @@
 # Swaybg 壁纸随机切换脚本 - 绝对路径版
 
 # 设置壁纸目录
-BG_PATH="/data/bg/img"
+BG_PATH="$HOME/.config/niri/bg"
 
 # 杀死现有的 swaybg 进程
 pkill swaybg

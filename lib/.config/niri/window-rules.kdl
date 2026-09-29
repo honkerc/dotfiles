@@ -1,0 +1,44 @@
+// ============================================================
+// 窗口规则
+// 文档: https://yalter.github.io/niri/Configuration:-Window-Rules
+// ============================================================
+
+// niri 暂不支持"列中只有一个窗口"的 match 条件
+// 若需全屏效果，可去掉 match 行让规则对所有窗口生效（会覆盖 layout.default-column-width）
+// window-rule {
+//     default-column-width { proportion 1.0; }
+// }
+
+// WezTerm 初始宽度由窗口自行决定（避免初始配置错误）
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width {}            // 空 = 使用窗口自报的首选宽度
+}
+
+// Firefox 画中画播放器以浮动模式打开
+window-rule {
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
+// Rofi 启动器以浮动模式打开
+window-rule {
+    match app-id=r#"Rofi$"#
+    open-floating true
+}
+
+// 从屏幕录制中屏蔽密码管理器内容（隐私保护）
+window-rule {
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+    match app-id=r#"^org\.gnome\.World\.Secrets$"#
+    // block-out-from 可选值:
+    //   "screen-capture" — 对截图和录屏均隐藏（显示为黑块）
+    //   "screencast"     — 仅对录屏隐藏，截图仍可见
+    block-out-from "screen-capture"
+}
+
+// 全局圆角（所有窗口统一外观）
+window-rule {
+    geometry-corner-radius 8           // 圆角半径（像素），0 = 直角
+    clip-to-geometry true              // 裁剪内容到圆角边界，防止内容溢出
+}
