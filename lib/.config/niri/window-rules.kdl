@@ -42,3 +42,19 @@ window-rule {
     geometry-corner-radius 8           // 圆角半径（像素），0 = 直角
     clip-to-geometry true              // 裁剪内容到圆角边界，防止内容溢出
 }
+
+// 应用窗口背景模糊（niri 26.04+，配合半透明应用更自然）
+window-rule {
+    background-effect {
+        blur true
+        xray false                     // 关闭 xray，模糊取样窗口内容，观感更真实
+    }
+}
+
+// Noctalia 设置窗口（浮动、固定尺寸）
+window-rule {
+    match app-id="dev.noctalia.Noctalia"
+    open-floating true
+    default-column-width { fixed 1080; }
+    default-window-height { fixed 920; }
+}

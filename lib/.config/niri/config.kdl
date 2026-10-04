@@ -165,8 +165,38 @@ layer-rule {
 }
 
 // ----------------------------------------------------------
+// Noctalia 模糊（niri 26.04+，Noctalia 通过 ext-background-effects 自动发布模糊区域）
+// ----------------------------------------------------------
+layer-rule {
+    match namespace="^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd)$"
+    background-effect {
+        xray false                     // 关闭 xray，避免圆角边缘透出壁纸色
+        // blur false                  // 若不想要模糊，取消注释此行
+    }
+}
+
+layer-rule {
+    match namespace="noctalia-window-switcher"   // 窗口切换器单独开模糊
+    background-effect {
+        blur true
+        xray false
+    }
+}
+
+// 全局模糊参数微调
+blur {
+    passes 2                           // 模糊次数，越多越强（默认 3）
+    offset 3.0                         // 每次取样距离（默认 3.0）
+    noise 0.03                         // 噪点纹理（默认 0.02）
+    saturation 1.1                     // 颜色饱和度提升（默认 1.5）
+}
+
+// ----------------------------------------------------------
 // 窗口规则与按键绑定
 // ----------------------------------------------------------
 
 include "window-rules.kdl"            // 窗口规则（浮动、圆角、隐私屏蔽等）
 include "binds.kdl"                   // 快捷键绑定
+
+
+include "noctalia.kdl"

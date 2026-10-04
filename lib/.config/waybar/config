@@ -14,7 +14,7 @@
            "clock"
     ],
     "modules-right": [
-        // "group/expand",
+        "group/expand",
         "cpu",
         "memory",
         // "backlight/slider",

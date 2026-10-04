@@ -64,7 +64,7 @@ hl.env("XCURSOR_SIZE",       "30")
 hl.env("HYPRCURSOR_THEME",   "future-cyan-hyprcursor")
 hl.env("HYPRCURSOR_SIZE",    "30")
 
-
+hl.env("LIBVA_DRIVER_NAME", "iHD")
 -- =============================================================================
 -- 调试配置
 -- 参考: https://wiki.hypr.land/Configuring/Basics/Variables/#debug
