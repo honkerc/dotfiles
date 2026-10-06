@@ -1,0 +1,66 @@
+# [全局设置]
+title-text: ""  # 隐藏GRUB窗口标题文本（留空表示不显示）
+desktop-image: "moon.jpg"  # 背景图片文件名（位于主题目录中）
+desktop-image-scale-method: "padding"  # 背景图缩放方式：保持比例填充黑边
+desktop-image-h-align: "center"  # 背景图水平居中
+desktop-color: "#000000"  # 背景颜色（纯黑色）
+terminal-box: "terminal_box_*.png"  # 终端边框图片（*匹配不同状态）
+terminal-font: "Terminus Regular 14"  # 终端字体和字号
+terminal-left: "0"  # 终端框左边距（0像素）
+terminal-top: "0"  # 终端框顶边距（0像素）
+terminal-width: "100%"  # 终端框宽度（100%屏幕宽度）
+terminal-height: "100%"  # 终端框高度（100%屏幕高度）
+terminal-border: "0"  # 终端边框宽度（0表示无边框）
+
+# [启动菜单样式配置]
++ boot_menu {  # 开始定义启动菜单样式
+  left = 7%+3  # 菜单左侧位置（屏幕宽度7% + 3像素）
+  top = 86%-161  # 菜单顶部位置（屏幕高度86% - 161像素）
+  width = 600  # 菜单总宽度（600像素）
+  height = 143  # 菜单总高度（143像素）
+  item_height = 32  # 单个菜单项高度（32像素）
+  item_font = "Unifont Regular 16"  # 菜单项字体样式
+  item_color = "#ACA8A5"  # 未选中项文字颜色（浅灰色）
+  item_padding = 0  # 菜单项内边距（0像素）
+  icon_width = 19  # 菜单项图标宽度（19像素）
+  item_icon_space = 18  # 图标与文字间距（18像素）
+  icon_height = 0  # 图标高度（0表示不显示图标）
+  selected_item_color = "#FFFFFF"  # 选中项文字颜色（白色）
+  selected_item_font = "Funnel Sans Regular 21"  # 选中项字体
+  item_spacing = 4  # 菜单项之间的垂直间距（4像素）
+  selected_item_pixmap_style = "selected_item_*.png"  # 选中项背景图片
+}  # 结束启动菜单定义
+
+# [底部操作提示标签]
++ label {  # 开始定义标签
+  color = "#ACA8A5"  # 文字颜色（浅灰色）
+  font = "Unifont Regular 16"  # 字体样式
+  left = 9%+3  # 左侧位置（屏幕宽度9% + 3像素）
+  top = 87%+1  # 顶部位置（屏幕高度87% + 1像素）
+  width = 31%  # 标签宽度（屏幕宽度31%）
+  align = "left"  # 文本左对齐
+  text = "Press C for Console or E to Edit"  # 提示文本内容
+}  # 结束标签定义
+
+# [启动状态标签]
++ label {  # 开始定义标签
+  color = "#ACA8A5"  # 文字颜色（浅灰色）
+  font = "Unifont Regular 16"  # 字体样式（字号22）
+  left = 85%+1  # 左侧位置（屏幕宽度85% + 1像素）
+  top = 87%+5  # 顶部位置（屏幕高度87% + 5像素）
+  width = 31%  # 标签宽度（屏幕宽度31%）
+  align = "left"  # 文本左对齐
+  text = "Booting"  # 固定文本内容（显示"正在启动"）
+}  # 结束标签定义
+
+# [倒计时标签]
++ label {  # 开始定义标签
+  color = "#5AEB71"  # 文字颜色（亮绿色）
+  font = "Unifont Regular 18"  # 特殊字体样式（字号32）
+  left = 85%+112  # 左侧位置（屏幕宽度85% + 112像素）
+  top = 87%  # 顶部位置（屏幕高度87%）
+  width = 31%  # 标签宽度（屏幕宽度31%）
+  align = "left"  # 文本左对齐
+  id = "__timeout__"  # 特殊ID（GRUB自动绑定倒计时功能）
+  text = "%d"  # 动态文本（%d将被替换为倒计时秒数）
+}  # 结束标签定义
