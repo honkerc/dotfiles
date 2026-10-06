@@ -1,16 +1,21 @@
-return-- lazy.nvim
-{
+return {
   "folke/noice.nvim",
   event = "VeryLazy",
-  opts = {
-    -- add any options here
-  },
   dependencies = {
-    -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
     "MunifTanjim/nui.nvim",
-    -- OPTIONAL:
-    --   `nvim-notify` is only needed, if you want to use the notification view.
-    --   If not available, we use `mini` as the fallback
     "rcarriga/nvim-notify",
-    }
+  },
+  config = function()
+    -- 先定义高亮组
+    vim.api.nvim_set_hl(0, "NotifyBackground", { bg = "#1e1e2e" })
+    -- 再初始化 notify
+    require("notify").setup({
+      background_colour = "#1e1e2e",
+      -- background_colour = "NotifyBackground",
+    })
+    -- 最后配置 noice
+    require("noice").setup({
+      -- 你的 noice 配置
+    })
+  end,
 }

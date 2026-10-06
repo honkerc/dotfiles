@@ -3,10 +3,8 @@ return {
   version = "*",
   dependencies = {
     "rafamadriz/friendly-snippets",
-    "L3MON4D3/LuaSnip",
     "nvim-tree/nvim-web-devicons",
     "onsails/lspkind.nvim",
-    -- 新增 blink.pairs，使用 download 方式获取预编译二进制
     {
       "saghen/blink.pairs",
       version = "*",
@@ -14,11 +12,7 @@ return {
         require("blink.pairs").download():pwait(60000)
       end,
       dependencies = { "saghen/blink.download" },
-      opts = {
-        -- blink.pairs 的配置选项，可按需调整
-        -- 例如：禁用某些文件类型，或自定义高亮颜色
-        -- 这里保留为空表，使用默认行为
-      },
+      opts = {},
     },
   },
   event = "InsertEnter",
@@ -80,30 +74,14 @@ return {
     keymap = {
       preset = "super-tab",
     },
+    snippets = {
+      preset = "default", -- 使用 Neovim 原生 vim.snippet 引擎
+    },
     sources = {
-      default = { "path", "snippets", "buffer", "lsp" },
+      default = { "lsp", "path", "snippets", "buffer" },
     },
   },
   config = function(_, opts)
-    -- 先设置 LuaSnip
-    local ok_luasnip, luasnip = pcall(require, "luasnip")
-    if ok_luasnip then
-      require("luasnip.loaders.from_vscode").lazy_load()
-
-      vim.keymap.set({"i", "s"}, "<C-l>", function()
-        if luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        end
-      end, { silent = true })
-
-      vim.keymap.set({"i", "s"}, "<C-h>", function()
-        if luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        end
-      end, { silent = true })
-    end
-
-    -- 最后设置 blink.cmp
     local ok_blink, blink = pcall(require, "blink.cmp")
     if ok_blink then
       blink.setup(opts)

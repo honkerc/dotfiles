@@ -14,7 +14,7 @@ layout {
     // "always"      永远居中
     // "on-overflow" 挤满了才居中
     // "never"       永远不居中
-    center-focused-column "always"
+    center-focused-column "on-overflow"
 
 
     // ★★★ 关键：让 niri 根背景透明，Noctalia 壁纸才能透出来 ★★★
