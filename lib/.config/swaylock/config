@@ -17,11 +17,11 @@ clock
 # =============================================
 
 # 背景图片路径
-image=/home/clay/.config/swaylock/dracula-wallpaper.svg
-#screenshot
+# image=/home/clay/.config/swaylock/dracula-wallpaper.svg
+screenshot
 
 # 背景模糊效果 (水平模糊x垂直模糊)
-effect-blur=3x3
+effect-blur=4x4
 
 # 暗角效果 (强度:半径)
 effect-vignette=0.5:0.5
@@ -35,8 +35,8 @@ color=6272A4
 # =============================================
 
 # 字体名称
-font="Inter"
-
+# font="JetBrainsMono Nerd Font"
+font=JetBrainsMonoNL Nerd Font
 
 # =============================================
 # 输入指示器设置
@@ -75,7 +75,7 @@ separator-color=00000000
 text-color=F8F8F2
 
 # 大写锁定提示文本颜色（空=默认）
-text-caps-lock-color=""
+text-caps-lock-color=
 
 # 验证状态线条颜色
 line-ver-color=BD93F9
@@ -131,11 +131,9 @@ grace-no-mouse
 grace-no-touch
 
 # 日期格式
-datestr=%a, %B %e
-
+datestr=%Y-%m-%d
 # 时间格式
-timestr=%I:%M %p
-
+timestr=%H:%M
 # 淡入动画时间（秒）
 fade-in=0
 

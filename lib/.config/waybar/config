@@ -1,25 +1,26 @@
 {
     "layer": "top",
-   //"position": "bottom",
+    //"position": "bottom",
     "reload_style_on_change": true,
-     "margin-top": 0,
-     "margin-left": 4,
-     "margin-right": 4,
-     "margin-bottom": 0,
+    "margin-top": 0,
+    "margin-left": 4,
+    "margin-right": 4,
+    "margin-bottom": 0,
     "modules-left": [
         //"custom/logo",
-        "hyprland/workspaces"
+        "niri/workspaces"
     ],
-    "modules-center":[
-           "clock"
+    "modules-center": [
+        "clock"
     ],
     "modules-right": [
-        "group/expand",
+        // "group/expand",
         "cpu",
         "memory",
         // "backlight/slider",
-        "group/tools",
+        "group/tools"
     ],
+
     "group/expand": {
         "orientation": "horizontal",
         "drawer": {
@@ -35,49 +36,47 @@
     "group/tools": {
         "orientation": "horizontal",
         "modules": [
-           "custom/ip",
+            "custom/ip",
             // "custom/clock",
             // "custom/picker",
             // "custom/bg",
-        "pulseaudio",
-        "backlight",
-        "battery",
-        "custom/endpoint",
-        "tray",
+            "pulseaudio",
+            "backlight",
+            "battery",
+            "custom/endpoint",
+            "tray"
         ]
     },
-    // 窗口标题等
-    "hyprland/window": {
+
+    // niri 当前窗口标题（替代 hyprland/window）
+    "niri/window": {
         "format": "{}",
         "separate-outputs": true
     },
-    "hyprland/workspaces": {
+
+    // niri 工作区（替代 hyprland/workspaces）
+    // 工作区名称来自 config.kdl 中定义的 workspace "name"
+    "niri/workspaces": {
         "format": "{icon}",
         "format-icons": {
-          "1": "",
-          "2": "",
+          "1": "",
+          "2": "",
           "3": "",
           "4": "",
-          "5": "",
-          "6": "",
+          "5": "",
+          "6": "",
           "7": "",
           "8": "",
-          "9": "",
-          "10": "",
-          // "default": "",
-          // "active": "",
-          // "urgent": "",
-        },
-        "persistent-workspaces": {
-            "*": [
-                1,
-                2,
-                3,
-                4,
-                5,
-            ]
+          "9": "",
+          "0": ""
+            // "terminal":   "",    // 工作区名对应图标
+            // "repository": "",
+            // "browser":    "",
+            // "active":     "",    // 当前激活工作区的兜底图标
+            // "default":    ""     // 未命中以上 key 时的默认图标
         }
     },
+
     "tray": {
         "icon-size": 18,
         "spacing": 6
@@ -102,15 +101,9 @@
         "format-alt": "{icon} {capacity}",
         "format-icons": {
             "charging": [
-                ""
+                ""
             ],
             "default": [
-                // "",
-                // "",
-                // "",
-                // "",
-                // ""
-
                 "󰁺",
                 "󰁻",
                 "󰁼",
@@ -132,14 +125,14 @@
     },
     "network": {
         "format-wifi": "󰤨",
-        "format-ethernet": "{ipaddr}/{cidr} ",
+        "format-ethernet": "{ipaddr}/{cidr} ",
         "tooltip-format": "󰤨 {essid} ({signalStrength}%)",
         "tooltip": true,
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ",
-        "on-click": "~/.config/hypr/scripts/ip.sh",
-        "format-alt": "{ifnanme}: {ipaddr}/{cidr}"
-        // "on-click-right": "~/.config/rofi/wifi/wifinew.sh &",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected ",
+        "on-click": "~/.config/niri/scripts/ip.sh",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        // "on-click-right": "~/.config/rofi/wifi/wifinew.sh &"
     },
     "pulseaudio": {
         "format": "{icon}",
@@ -147,9 +140,8 @@
         "format-bluetooth": "󰗾",
         "nospacing": 1,
         "tooltip-format": "Volume : {volume}%",
-
         "format-icons": {
-            "headphone": "",
+            "headphone": "",
             "default": [
                 "󱪃"
             ]
@@ -163,43 +155,21 @@
         "tooltip-format": "{icon} {percent}%",
         "format-icons": [
             ""
-            // "󱩎",
-            // "󱩏",
-            // "󱩐",
-            // "󱩑",
-            // "󱩒",
-            // "󱩔",
-            // "󱩕",
-            // "󱩕",
-            // "󱩖",
+            // "󱩎", "󱩏", "󱩐", "󱩑", "󱩒", "󱩔", "󱩕", "󱩕", "󱩖"
         ]
     },
-    "custom/expand": {
-        "format": "",
-        "tooltip": false
-    },
-    "custom/endpoint": {
-        "format": "|",
-        "tooltip": false
-    },
-    "custom/logo": {
-        "format": "  ",
-        "tooltip": false,
-        "on-click":"$HOME/.config/rofi/launchers/misc/launcher.sh &"
-    },
-
     "cpu": {
         "interval": 1,
         "format": "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}",
         "format-icons": [
-            "<span color='#69ff94'>▁</span>", // green
-            "<span color='#69ff94'>▂</span>", // green
-            "<span color='#69ff94'>▃</span>", // green
-            "<span color='#2aa9ff'>▄</span>", // blue
-            "<span color='#2aa9ff'>▅</span>", // blue
-            "<span color='#ffffa5'>▆</span>", // yellow
-            "<span color='#ff9977'>▇</span>", // orange
-            "<span color='#dd532e'>█</span>" // red
+            "<span color='#69ff94'>▁</span>",
+            "<span color='#69ff94'>▂</span>",
+            "<span color='#69ff94'>▃</span>",
+            "<span color='#2aa9ff'>▄</span>",
+            "<span color='#2aa9ff'>▅</span>",
+            "<span color='#ffffa5'>▆</span>",
+            "<span color='#ff9977'>▇</span>",
+            "<span color='#dd532e'>█</span>"
         ]
     },
     "memory": {
@@ -228,15 +198,28 @@
         "max": 100,
         "orientation": "horizontal"
     },
+    "custom/expand": {
+        "format": "",
+        "tooltip": false
+    },
+    "custom/endpoint": {
+        "format": "|",
+        "tooltip": false
+    },
+    "custom/logo": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "$HOME/.config/rofi/launchers/misc/launcher.sh &"
+    },
     "custom/ip": {
         "format": "",
         "tooltip": false,
-        "on-click": "~/.config/hypr/scripts/ip.sh &"
+        "on-click": "~/.config/niri/scripts/ip.sh &"
     },
     "custom/bg": {
         "format": "",
         "tooltip": false,
-        "on-click": "~/.config/hypr/scripts/bg.sh &"
+        "on-click": "~/.config/niri/scripts/bg.sh &"
     },
     "custom/clock": {
         "format": "󱎫",
@@ -246,6 +229,6 @@
     "custom/picker": {
         "format": "",
         "tooltip": false,
-        "on-click": "hyprpicker | wl-copy&"
+        "on-click": "hyprpicker | wl-copy &"  // hyprpicker 在 niri 下通过 zwlr-screencopy 协议工作
     }
 }

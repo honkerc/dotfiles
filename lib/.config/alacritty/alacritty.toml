@@ -25,7 +25,7 @@ history = 10000
 [window]
 decorations = "None"  # 禁用客户端装饰
 dynamic_title = true
-opacity = 0.90
+opacity = 0.70
 
 
 [window.padding]

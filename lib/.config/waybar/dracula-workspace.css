@@ -1,16 +1,17 @@
 #workspaces {
   background-color: #44475a;
   font-size: 25px;
-  border-radius: 6px;
-  padding: 0px 8px;
+  border-radius: 4px;
+  padding: 0px 4px;
+  padding-top:4px;
   margin: 4px;
   margin-left: 0px;
 }
 
 #workspaces button {
-  padding: 8px 4px;
+  padding: 4px 4px;
   color: #6272a4;
-  font-size: 25px;
+  font-size: 16px;
   border-bottom: 3px solid transparent;
 }
 
@@ -46,6 +47,6 @@
 
 #workspaces button.empty:hover,
 #workspaces button.active.empty {
-      color: #a6accd; /* 柔和的灰蓝色，不再刺眼 */
-  border-bottom: 3px solid #a6accd;
+  color: #f8f8f2;
+  border-bottom: 3px solid #f8f8f2;
 }

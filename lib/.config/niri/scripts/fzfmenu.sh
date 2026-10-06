@@ -2,9 +2,7 @@
 
 # 初始化规则数组
 rules=(
-    "dir:$HOME/.config/self/script"
-    "desktop:/usr/share/applications"
-    "desktop:$HOME/.local/share/applications"
+    "dir:$HOME/.config/niri/script"
 )
 
 # 样式配置
