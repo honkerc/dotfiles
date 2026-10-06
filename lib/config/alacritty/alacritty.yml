@@ -1,0 +1,68 @@
+import:
+  - ~/.config/alacritty/themes/snazzy.yaml
+
+window:
+  padding:
+    x: 2
+    y: 2
+  decorations: full
+
+  opacity: 0.65
+
+  # 允许修改alacritty标题
+  dynamic_title: true
+
+scrolling:
+  history: 10000
+
+cursor:
+  # Cursor style
+  style:
+    # Cursor shape
+    #
+    # Values for `shape`:
+    #   - ▇ Block
+    #   - _ Underline
+    #   - | Beam
+    shape: Beam
+
+    # Cursor blinking state
+    #
+    # Values for `blinking`:
+    #   - Never: Prevent the cursor from ever blinking
+    #   - Off: Disable blinking by default
+    #   - On: Enable blinking by default
+    #   - Always: Force the cursor to always blink
+    blinking: Always
+
+  # Vi mode cursor style
+  #
+  # If the vi mode cursor style is `None` or not specified, it will fall back to
+  # the style of the active value of the normal cursor.
+  #
+  # See `cursor.style` for available options.
+  vi_mode_style: Beam
+
+  # Cursor blinking interval in milliseconds.
+  blink_interval: 750
+
+font:
+  normal:
+    # Font family
+    #
+    # Default:
+    #   - (macOS) Menlo
+    #   - (Linux/BSD) monospace
+    #   - (Windows) Consolas
+    family: "mono"
+      #family: "Roboto"
+    
+
+  size: 10.0
+
+  offset:
+    x: 0
+    y: 2
+
+mouse:
+  hide_when_typing: false
