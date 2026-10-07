@@ -1,116 +1,171 @@
 #!/bin/bash
+# fzf launcher: uses custom rules if available, otherwise falls back to fzf default
 
-# 初始化规则数组
+# ===== Rules =====
 rules=(
-    "dir:$HOME/.config/niri/script"
+    # "dir:$HOME/.config/niri/scripts"
 )
 
-# 样式配置
+# ===== fzf style =====
 export FZF_DEFAULT_OPTS="
-  --color=spinner:#F2D5CF                # 加载动画（旋转图标）颜色
-  --color=hl:#5af78e                     # 非选中项的匹配关键词高亮色
-  --color=fg:#C6D0F5                     # 常规文本颜色（未选中项）
-  --color=header:#E78284                 # 标题栏颜色（显示结果统计信息）
-  --color=info:#CA9EE6                   # 辅助信息颜色（如快捷键提示）
-  --color=pointer:#ff5c57                # 光标指示符颜色（❯ 符号）
-  --color=marker:#BABBF1                 # 多选模式标记符号颜色（✓ 图标）
-  --color=fg+:#ff5c57                    # 选中项的文本颜色
-  --color=prompt:#CA9EE6                 # 输入提示符颜色（如 > 符号）
-  --color=hl+:#5af78e                    # 选中项内的匹配关键词高亮色
-  --color=selected-bg:#51576D            # 多选模式下已标记项的背景色
-  --color=label:#C6D0F5                  # 多选模式标签文字颜色
-  --color=bg+:#414559                    # 背景色：bg+为选中项背景色
-  --tabstop=1                            # 指针单字符宽度
-  --info=inline-right                    # 底部右侧显示计数
-  --prompt='  '                          # 简洁提示符
+  --color=spinner:#F2D5CF
+  --color=hl:#5af78e
+  --color=fg:#C6D0F5
+  --color=header:#E78284
+  --color=info:#CA9EE6
+  --color=pointer:#ff5c57
+  --color=marker:#BABBF1
+  --color=fg+:#ff5c57
+  --color=prompt:#CA9EE6
+  --color=hl+:#5af78e
+  --color=selected-bg:#51576D
+  --color=label:#C6D0F5
+  --color=bg+:#414559
+  --tabstop=1
+  --info=inline-right
+  --prompt='  '
   --margin=0%,0%
   --padding=2%,0%,0%,0%
-  --ansi                                 # 支持ANSI颜色
+  --ansi
+  --layout=reverse
+  --border=rounded
 "
 
-# 创建临时数组用于存储所有选项
-all_options=()
+# ===== Collect as "name\tpath" lines =====
+lines=""
 
-# 处理rules数组中的每个项目
 for item in "${rules[@]}"; do
-  if [[ "$item" == dir:* ]]; then
-    # 处理目录规则
-    dir_path="${item#dir:}"
-    # 扩展波浪号路径
-    dir_path=$(eval echo "$dir_path")
-
-    # 检查目录是否存在
-    if [[ -d "$dir_path" ]]; then
-      # 遍历目录中的所有文件
-      while IFS= read -r -d '' file; do
-        if [[ -f "$file" ]]; then
-          # 获取文件名（包含后缀）
-          filename=$(basename "$file")
-          # 添加到选项数组
-          all_options+=("$filename:$file")
+    if [[ "$item" == dir:* ]]; then
+        dir_path=$(eval echo "${item#dir:}")
+        if [[ -d "$dir_path" ]]; then
+            while IFS= read -r -d '' file; do
+                [[ -f "$file" ]] || continue
+                lines+="$(basename "$file")"$'\t'"$file"$'\n'
+            done < <(find "$dir_path" -maxdepth 1 -type f -print0 2>/dev/null)
+        else
+            echo "Warning: directory not found: $dir_path" >&2
         fi
-      done < <(find "$dir_path" -maxdepth 1 -type f -print0 2>/dev/null)
-    else
-      echo "警告: 目录不存在: $dir_path" >&2
-    fi
-  elif [[ "$item" == desktop:* ]]; then
-    # 处理桌面文件规则
-    dir_path="${item#desktop:}"
-    # 扩展波浪号路径
-    dir_path=$(eval echo "$dir_path")
 
-    # 检查目录是否存在
-    if [[ -d "$dir_path" ]]; then
-      # 遍历目录中的所有.desktop文件
-      while IFS= read -r -d '' file; do
-        if [[ -f "$file" && "$file" == *.desktop ]]; then
-          # 从.desktop文件中提取Name字段
-          name=$(grep -E "^Name=" "$file" | head -n 1 | cut -d= -f2)
-
-          # 如果Name字段不存在，使用文件名（不含扩展名）
-          if [[ -z "$name" ]]; then
-            name=$(basename "$file" .desktop)
-          fi
-          
-          # 添加.desktop后缀到显示名称
-          name="$name.desktop"
-
-          # 添加到选项数组
-          all_options+=("$name:$file")
+    elif [[ "$item" == desktop:* ]]; then
+        dir_path=$(eval echo "${item#desktop:}")
+        if [[ -d "$dir_path" ]]; then
+            while IFS= read -r -d '' file; do
+                name=$(grep -E "^Name=" "$file" | head -n 1 | cut -d= -f2)
+                [[ -z "$name" ]] && name=$(basename "$file" .desktop)
+                lines+="$name.desktop"$'\t'"$file"$'\n'
+            done < <(find "$dir_path" -maxdepth 1 -type f -name "*.desktop" -print0 2>/dev/null)
+        else
+            echo "Warning: directory not found: $dir_path" >&2
         fi
-      done < <(find "$dir_path" -maxdepth 1 -type f -name "*.desktop" -print0 2>/dev/null)
+
     else
-      echo "警告: 目录不存在: $dir_path" >&2
+        lines+="$item"$'\t'"$item"$'\n'
     fi
-  else
-    # 直接添加普通应用项
-    all_options+=("$item")
-  fi
 done
 
-# 使用fzf选择应用
-choice=$(printf "%s\n" "${all_options[@]}" | cut -d: -f1 | fzf --prompt="  ")
-
-if [ -n "$choice" ]; then
-    # 获取对应的命令
-    cmd=$(printf "%s\n" "${all_options[@]}" | grep "^$choice:" | cut -d: -f2-)
-
-    # 检查是否是.desktop文件
-    if [[ "$cmd" == *.desktop ]]; then
-        # 使用gtk-launch或xdg-open启动.desktop文件
-        if command -v gtk-launch >/dev/null 2>&1; then
-            # 提取.desktop文件名（不含路径和扩展名）
-            desktop_file=$(basename "$cmd" .desktop)
-            setsid sh -c "gtk-launch $desktop_file >/dev/null 2>&1 &"
-        else
-            # 回退到使用xdg-open
-            setsid sh -c "xdg-open \"$cmd\" >/dev/null 2>&1 &"
-        fi
-    else
-        # 扩展波浪号路径（如果有）
-        cmd=$(eval echo "$cmd")
-
-        # 执行应用，完全从终端分离
-        setsid sh -c "$cmd >/dev/null 2>&1 &"
-    fi
+# ===== Decide mode =====
+if [ -z "$lines" ]; then
+    fallback_mode=true
+else
+    fallback_mode=false
 fi
+
+# ===== Preview script (handles both "name\tpath" and plain path) =====
+PREVIEW_SCRIPT=$(mktemp)
+cat > "$PREVIEW_SCRIPT" <<'PREVIEW_EOF'
+#!/bin/bash
+input="$1"
+
+if [[ "$input" == *$'\t'* ]]; then
+    cmd=$(printf '%s' "$input" | cut -f2)
+else
+    cmd="$input"
+fi
+
+if [ -z "$cmd" ]; then
+    echo "No path"
+    exit 0
+fi
+
+if [[ "$cmd" != /* ]]; then
+    cmd=$(realpath "$cmd" 2>/dev/null || echo "$cmd")
+fi
+
+# Action hints
+printf '\033[1;36m═══ Actions ═══════════════════════\033[0m\n'
+printf '\033[1;33m  Enter\033[0m  run / open\n'
+printf '\033[1;33m  Alt-R\033[0m  run with sh\n'
+printf '\033[1;33m  Alt-S\033[0m  run with bash\n'
+printf '\033[1;33m  Alt-E\033[0m  edit with nvim\n'
+printf '\033[1;33m  Alt-V\033[0m  view with less\n'
+printf '\033[1;33m  Alt-Y\033[0m  copy path\n'
+printf '\033[1;36m═══ Content ═══════════════════════\033[0m\n'
+
+if [ -f "$cmd" ] && file --mime-type -b "$cmd" | grep -q "text/"; then
+    bat --style=plain --color=always "$cmd" 2>/dev/null || cat "$cmd"
+elif [ -f "$cmd" ]; then
+    file "$cmd"
+else
+    echo "$cmd"
+fi
+PREVIEW_EOF
+chmod +x "$PREVIEW_SCRIPT"
+trap 'rm -f "$PREVIEW_SCRIPT"' EXIT
+
+# ===== Select =====
+if [ "$fallback_mode" = true ]; then
+    result=$(fzf --prompt="  " \
+        --preview-window='right,62%,border-left,wrap' \
+        --preview "bash $PREVIEW_SCRIPT {}" \
+        --expect=alt-r,alt-s,alt-e,alt-v,alt-y \
+        2>/dev/null) || true
+else
+    result=$(printf '%s' "$lines" | fzf --prompt="  " \
+        --delimiter='\t' --with-nth=1 \
+        --preview-window='right,62%,border-left,wrap' \
+        --preview "bash $PREVIEW_SCRIPT {}" \
+        --expect=alt-r,alt-s,alt-e,alt-v,alt-y \
+        2>/dev/null) || true
+fi
+
+[ -z "$result" ] && exit 0
+
+key=$(printf '%s' "$result" | head -n1)
+choice=$(printf '%s' "$result" | tail -n1)
+
+[ -z "$choice" ] && exit 0
+
+if [[ "$choice" == *$'\t'* ]]; then
+    cmd=$(printf '%s' "$choice" | cut -f2)
+else
+    cmd=$(realpath "$choice" 2>/dev/null || echo "$choice")
+fi
+
+# ===== Dispatch =====
+case "$key" in
+    "")
+        if [[ "$cmd" == *.desktop ]]; then
+            if command -v gtk-launch >/dev/null 2>&1; then
+                setsid sh -c "gtk-launch $(basename "$cmd" .desktop) >/dev/null 2>&1 &"
+            else
+                setsid sh -c "xdg-open \"$cmd\" >/dev/null 2>&1 &"
+            fi
+        elif [ -x "$cmd" ]; then
+            setsid sh -c "$cmd >/dev/null 2>&1 &"
+        else
+            setsid xdg-open "$cmd" >/dev/null 2>&1 &
+        fi
+        ;;
+    alt-r) setsid sh -c "sh \"$cmd\" >/dev/null 2>&1 &" ;;
+    alt-s) setsid sh -c "bash \"$cmd\" >/dev/null 2>&1 &" ;;
+    alt-e) setsid alacritty -e nvim "$cmd" & ;;
+    alt-v) setsid alacritty -e less "$cmd" & ;;
+    alt-y)
+        if command -v wl-copy >/dev/null 2>&1; then
+            printf '%s' "$cmd" | wl-copy
+        elif command -v xclip >/dev/null 2>&1; then
+            printf '%s' "$cmd" | xclip -selection clipboard
+        fi
+        notify-send "Path copied" "$cmd" 2>/dev/null
+        ;;
+esac
