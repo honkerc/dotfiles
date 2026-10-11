@@ -40,7 +40,9 @@ BACKUP_FILES=(
     "niri"
     "waybar"
     "rofi"
-    # "self"
+    "fish"
+    "swaylock"
+    "hypr"
     "pip"
     # "kitty"
 )
